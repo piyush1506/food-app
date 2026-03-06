@@ -4,6 +4,8 @@ import {useNavigate,Navigate} from 'react-router-dom'
 import Resturant from './Resturant'
 import API from '../../utils/axiosInstance'
 import Header from './Header'
+import FreeLocationPicker from '../map/map'
+
 
 
 
@@ -86,7 +88,7 @@ const Dash = () => {
   
   return (
     <>
-      <div className="w-100%  h-screen m-0 p-0 ">
+      <div className="w-full h-screen m-0 p-0 ">
         <div className=" ">
          <Header/>
           <div className="body">
@@ -94,10 +96,10 @@ const Dash = () => {
               <div className="body-category ">
                 <div className="cat1 ">
                   <div className="head"><h2 className='text-[23px] mt-5  '>fast food</h2></div>
-                  <div className="cards flex gap-4 overflow-x-auto py-8 scroll-smooth overflow-y-visible scrollbar-hide">
+                  <div className="cards flex gap-2 overflow-x-auto py-8 scroll-smooth overflow-y-visible scrollbar-hide">
                     {allfood.map((i,index)=>(
-            <div  key={i._id || index} onClick={()=>{Opendetailpage(i.title)}} className="box   rounded-lg z-index-3 p-1 shadow-lg min-w-[150px] border transition-all duration-500 ease-in-out hover:-translate-y-3 hover:scale-105 hover:shadow-2xl">
-                    <span className="img overflow-hidden "><img className='h-[140px]  w-auto overflow-hidden' src={`${i.imageUrl}`} /></span>
+            <div  key={i._id || index} onClick={()=>{Opendetailpage(i.title)}} className="box w-[150px] flex-shrink-0 rounded-lg z-index-3 p-1 shadow-lg  border transition-all duration-500 ease-in-out hover:-translate-y-3 hover:scale-101 hover:shadow-2xl">
+                    <span className=""><img className='h-[150px] dashimg' src={`${i.imageUrl}`} /></span>
                      <span className='text-xl text-blue-700  font-semibold'>{i?.title}</span>
                        <div className="des">
                    {i?.description}
@@ -112,7 +114,7 @@ const Dash = () => {
                   <div className="head"><h2 className='text-[23px] mt-5  '>fast food</h2></div>
                   <div className="cards flex gap-4 overflow-x-auto py-8 scroll-smooth overflow-y-visible scrollbar-hide">
                     {rest.resturants?.map((i,index)=>(
-            <div  key={i._id || index} onClick={()=>{navigate(`/resturant/${i._id}`)}} className="box   rounded-lg z-index-3 p-1 shadow-lg min-w-[200px] border transition-all duration-500 ease-in-out hover:-translate-y-3 hover:scale-105 hover:shadow-2xl">
+            <div  key={i._id || index} onClick={()=>{navigate(`/resturant/${i._id}`)}} className="box   rounded-lg z-index-3 p-1 shadow-lg min-w-[200px] border transition-all duration-500 ease-in-out hover:-translate-y-3 hover:scale-102 hover:shadow-2xl">
                     <span className="img overflow-hidden "><img className='h-[140px]  w-full' src={`${i.imageUrl}`} /></span>
                      <span className='text-xl text-yellow-700  font-semibold'>{i?.title}</span>
                        <div className="des">

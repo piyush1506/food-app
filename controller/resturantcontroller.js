@@ -6,7 +6,7 @@ const createResturantController = async (req,res)=>{
     try {
         const code = uniquecodegenerator();
         const {title,imageUrl,time,foods,location,pickup,delivery,rating,ratingcount,isopen} = req.body;
-   if(!title || !imageUrl || !foods ||!location){
+   if(!title || !imageUrl ||!location){
     return res.status(400).json({
         success:false,
         message:'fill all required fields'

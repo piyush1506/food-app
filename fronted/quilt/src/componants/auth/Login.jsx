@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import { Navigate,useNavigate } from 'react-router-dom';
 import API from '../../utils/axiosInstance';
+import Loading from '../../assets/images/loading.gif'
 
 export default function Login() {
 
-    const [Isloading,setIsloading] = useState(true)
+    const [Isloading,setIsloading] = useState(false)
     const navigate  = useNavigate();
       const [email,setemail] =useState('');
        const [password,setpassword] =useState('')
@@ -13,6 +14,7 @@ export default function Login() {
 
        const handlesubmit=async(e)=>{
           e.preventDefault();
+          setIsloading(true)
       const data = {
         email,password}
            try {
@@ -30,17 +32,24 @@ export default function Login() {
          
          if (resdata.success === true) {
            localStorage.setItem('token',resdata.token)
+           console.log(resdata.user)
+           
       localStorage.setItem('user',JSON.stringify(resdata.user))
            console.log(resdata.token)
           console.log('user registered successfully')
               navigate('/dash')    
+             
         }
          else{
           alert('registeration failed')
+          setIsloading(false)
          }
         
       } catch (error) {
       console.log('error is',  error)
+      }
+      finally{
+         setIsloading(false)
       }
           setemail('') 
           setpassword('')
@@ -57,10 +66,11 @@ useEffect(() => {
   }  
 }, []);
 
- if (Isloading){
 
- return(<div className='flex justify-center items-center'><h1>Loading</h1></div>)
-}
+//  if (Isloading){
+
+//  return(<div className='flex justify-center items-center'><h1>Loading</h1></div>)
+// }
      
     
   
@@ -68,7 +78,7 @@ useEffect(() => {
   return (
     <div> 
       <div>
-        <form onSubmit={handlesubmit}>
+               <form onSubmit={handlesubmit}>
         <div        className=" flex justify-center w-full h-screen items-center fixed">
           <div      className="shadow-xl mt-[-240px] fixed border-rounded rounded-lg p-2 ">
            <div     className="title flex items-center justify-around  text-[25px] font-semibold">
@@ -81,7 +91,7 @@ useEffect(() => {
             <input  onChange={(e)=>{setpassword(e.target.value)}} value={password} className='outline-none  border-b border-gray-200  placeholder:text-gray-800  placeholder:text-xl   my-2 h-10 w-full min-w-[300px] ' type='password'placeholder=' password' required/>
            </div>
            <div className="btn items-center flex justify-center">
-            <button className='bg-gray-500 w-full h-8 rounded-lg font-semibold  text-white' type='submit'>Login</button>
+            <button disabled={Isloading}  className='bg-gray-500 w-full h-8 rounded-lg font-semibold  text-white' type='submit'>{Isloading ? <img src={Loading} className='h-6 m-auto'/> :'Login'}</button>
            </div>
 
           </div>

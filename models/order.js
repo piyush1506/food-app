@@ -12,13 +12,42 @@ const orderSchemma  = new mongoose.Schema({
     },
     buyer:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'user'
+        ref:'user',
+        required:true
     },
+     
+    deliveryAddress:{       
+        name:{type:String,required:true},
+        phone:{type:String,required:true},
+        street:{type:String,required:true},
+        city:{type:String,required:true},
+           },
+     location:{
+            type:{
+                type:String,
+            enum:['Point'],
+            default:'Point'
+
+            // required:true
+            },
+            coordinates:{
+            type:[Number],
+            required:true
+           }
+           },
+           
+
     status:{
         type:String,
-        enum:['preparing','prepared','delivering','delivered'],
-        default:'preparing'
+        enum:['pending','accepted','preparing','prepared','delivering','delivered','rejected'],
+        default:'pending'
+    },
+    deliveryboy:{
+        type:mongoose.Schema.Types.ObjectId, 
+        ref:'DeliveryBoy',
+        default:null
     }
    
 },{timestamps:true})
-module.exports = mongoose.model('order',orderSchemma)
+    orderSchemma.index({location:'2dsphere'})
+module.exports = mongoose.model('Order',orderSchemma)

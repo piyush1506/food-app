@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cart from './Cart';
+import Category from './category';
 
 export default function Header() {
     const navigate  = useNavigate();
@@ -37,7 +39,7 @@ export default function Header() {
                  {/* <div className={`hamlist  transition-all duration-7000 ease-in-out  relative mt-[60px]  right-[-179px]  ${ishamopen ? 'hidden' :'flex'}`}> */}
                    <ul className={`w-[200px] cursor-pointer justify-center flex bg-[#37393E] items-center text-white p-3  flex-col  gap-8 m-auto w-100% font-semibold text-[18px] `}>
                  <li className='hover:text-gray-300'>Home</li>
-                 <li  className='hover:text-gray-300'>category</li>
+                 <li  onClick={()=>{navigate('/category')}} className='hover:text-gray-300'>category</li>
                  <li onClick={()=>{navigate('/cart')}} className='hover:text-gray-300'>cart</li>
                  <li className='hover:text-gray-300'>history </li>
                  <li className='hover:text-gray-300'>{isauth  ? user.username:'sign in'}</li>

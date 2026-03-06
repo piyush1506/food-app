@@ -224,7 +224,7 @@ const resdata = res.data
                  <h1 className='mt-5 text-2xl border-b-2 border-blue-900'>foods</h1>
             {Food.length > 0 &&
                   Food.map((i,index)=>(
-                    <div className='flex justify-around border-2 mt-4'>
+                    <div className='flex justify-around border-2 mt-4 items-center  rounded-[30px]'>
                  <div className="flex flex-col mt-2">
                     <span className='font-semibold text-gray-800 text-xl'>name : {i.title}</span>  
                     <span className='font-semibold text-orange-600'>price : {i.price}</span> 

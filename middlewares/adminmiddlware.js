@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose')
+const User = require('../models/usermodel')
 const adminmiddleware =  async(req,res,next)=>{
     try{
           
@@ -15,20 +17,32 @@ const adminmiddleware =  async(req,res,next)=>{
             if(!token){return res.status(401).json({success: false, message: 'Authorization header missing' });
     }
         
-        jwt.verify(token,process.env.JWT_SECRET,(err,decoded)=>{
-            if (err) {
-                return res.status(401).json({
+       const decoded = jwt.verify(token,process.env.JWT_SECRET)
+        // (err,decoded){
+        //     if (err) {
+        //         return res.status(401).json({
+        //             success:false,
+        //             message:err.message
+        //         })
+        //     }
+              const user = await User.findById(decoded.id)
+                //   req.user = decoded;
+                //   req.user.usertype = 'admin';
+                if (!user) {
+                     return res.status(401).json({
                     success:false,
-            message:err.message
+                    message:'user not find'
                 })
-            }
-            else{
-                  req.user = decoded;
-                 req.user.usertype = 'admin';
+                }
+                 if (user.usertype == 'admin') {
+                    req.user = user
+                    next();
+                }
+
                   console.log('AUTH MIDDLEWARE HIT');
-                 next();
-            }
-        })
+                  next();
+            
+        // })
        
 
     }catch(error){
