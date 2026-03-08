@@ -1,0 +1,69 @@
+
+const mongoose = require('mongoose')
+
+const deliveryBoySchema = new mongoose.Schema(
+    {
+        name:{
+            type:String,
+            required:true,
+            trim:true
+        },
+        phone:{
+            type:String,
+            required:true,
+            unique:true
+        },
+        password:{
+            type:String,
+            required:true,
+        },
+        usertype:{
+            type:String,
+            default:'delivery'
+        },
+        uniqueId:{
+            type:String,
+            unique:true,
+        },
+        isavailable:{
+            type:Boolean,
+            default:true
+        },
+        isVerified:{
+            type:String,
+            unique:true
+        },
+        fcmtoken:{
+            type:String
+        },
+        orders:[
+          {
+              type:mongoose.Schema.Types.ObjectId,
+                ref:'Order'
+            }
+        ],
+        stats:{
+            totalOrders:{
+                type:Number,
+                default:0
+            },
+            acceptOrder:{
+                type:Number,
+                default:0
+            }
+        },
+        currentOrder:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Order',
+            default:null
+        },
+        location:{
+            lat:Number,
+            lng:Number,
+            updatedAt:Date,
+        }
+    },
+    {timestamps:true}
+)
+
+module.exports = mongoose.model('DeliveryBoy',deliveryBoySchema)
